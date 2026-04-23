@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <meta name="robots" content="index, follow" />
+    <meta name="description" content="보기(bogi) 앱의 계정 및 데이터 삭제 안내" />
+    <title>계정 및 데이터 삭제 | 보기(bogi)</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        html,
+        body {
+            margin: 0;
+            padding: 0;
+            background: #f8fafc;
+            color: #1f2937;
+            font-family: -apple-system, BlinkMacSystemFont, "Apple SD Gothic Neo",
+                "Segoe UI", "Malgun Gothic", Roboto, "Helvetica Neue", Arial,
+                sans-serif;
+            font-size: 15px;
+            line-height: 1.65;
+            -webkit-text-size-adjust: 100%;
+            word-break: keep-all;
+            overflow-wrap: break-word;
+        }
+
+        .wrap {
+            max-width: 760px;
+            margin: 0 auto;
+            padding: 24px 18px 56px;
+        }
+
+        header.doc-head {
+            padding: 8px 0 20px;
+            border-bottom: 1px solid #e5e7eb;
+            margin-bottom: 20px;
+        }
+
+        header.doc-head h1 {
+            font-size: 22px;
+            font-weight: 800;
+            color: #111827;
+            margin: 0 0 6px;
+            letter-spacing: -0.01em;
+        }
+
+        header.doc-head .meta {
+            font-size: 12px;
+            color: #6b7280;
+        }
+
+        .intro {
+            background: #ffffff;
+            border: 1px solid #e5e7eb;
+            border-radius: 12px;
+            padding: 16px 18px;
+            margin-bottom: 18px;
+            font-size: 14px;
+            color: #374151;
+            line-height: 1.7;
+        }
+
+        section.article {
+            background: #ffffff;
+            border: 1px solid #e5e7eb;
+            border-radius: 12px;
+            padding: 18px 20px;
+            margin-bottom: 14px;
+        }
+
+        section.article h2 {
+            font-size: 16px;
+            font-weight: 700;
+            color: #111827;
+            margin: 0 0 10px;
+            line-height: 1.4;
+        }
+
+        section.article p,
+        section.article li {
+            font-size: 14px;
+            color: #374151;
+            line-height: 1.7;
+            margin: 0 0 8px;
+        }
+
+        section.article ul,
+        section.article ol {
+            padding-left: 20px;
+            margin: 6px 0 10px;
+        }
+
+        section.article li {
+            margin-bottom: 4px;
+        }
+
+        section.article .sub {
+            font-weight: 600;
+            color: #111827;
+            margin-top: 12px;
+            margin-bottom: 6px;
+            font-size: 14px;
+        }
+
+        table.data {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 13px;
+            margin: 8px 0 12px;
+        }
+
+        table.data th,
+        table.data td {
+            border: 1px solid #e5e7eb;
+            padding: 8px 10px;
+            text-align: left;
+            vertical-align: top;
+            color: #374151;
+        }
+
+        table.data th {
+            background: #f3f4f6;
+            font-weight: 700;
+            color: #111827;
+            white-space: nowrap;
+        }
+
+        .cta {
+            background: #eef2ff;
+            border: 1px solid #c7d2fe;
+            border-radius: 12px;
+            padding: 16px 18px;
+            margin-top: 8px;
+        }
+
+        .cta h3 {
+            margin: 0 0 8px;
+            font-size: 15px;
+            font-weight: 700;
+            color: #1e3a8a;
+        }
+
+        .cta p {
+            margin: 3px 0;
+            font-size: 14px;
+            color: #1e3a8a;
+            line-height: 1.65;
+        }
+
+        .cta .email-btn {
+            display: inline-block;
+            margin-top: 10px;
+            padding: 10px 18px;
+            background: #4c1d95;
+            color: #ffffff;
+            text-decoration: none;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 700;
+            letter-spacing: -0.01em;
+        }
+
+        .cta .email-btn:hover {
+            background: #3b0764;
+        }
+
+        .steps {
+            counter-reset: step-counter;
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .steps li {
+            counter-increment: step-counter;
+            padding: 10px 12px 10px 44px;
+            margin-bottom: 8px;
+            background: #f9fafb;
+            border: 1px solid #e5e7eb;
+            border-radius: 10px;
+            position: relative;
+            font-size: 14px;
+            color: #374151;
+            line-height: 1.65;
+        }
+
+        .steps li::before {
+            content: counter(step-counter);
+            position: absolute;
+            left: 12px;
+            top: 10px;
+            width: 22px;
+            height: 22px;
+            border-radius: 50%;
+            background: #4c1d95;
+            color: #ffffff;
+            font-weight: 700;
+            font-size: 12px;
+            text-align: center;
+            line-height: 22px;
+        }
+
+        a {
+            color: #2563eb;
+            text-decoration: none;
+        }
+
+        footer.doc-foot {
+            margin-top: 28px;
+            padding-top: 18px;
+            border-top: 1px solid #e5e7eb;
+            font-size: 12px;
+            color: #9ca3af;
+            text-align: center;
+        }
+
+        @media (max-width: 480px) {
+            .wrap {
+                padding: 20px 14px 48px;
+            }
+
+            header.doc-head h1 {
+                font-size: 20px;
+            }
+
+            section.article {
+                padding: 16px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="wrap">
+        <header class="doc-head">
+            <h1>계정 및 데이터 삭제 안내</h1>
+            <div class="meta">
+                서비스명: 보기(bogi) &middot; 최종 업데이트: 2026년 4월 23일
+            </div>
+        </header>
+
+        <div class="intro">
+            보기(bogi)는 이용자가 언제든지 계정 및 관련 개인정보를 삭제할 권리를 보장합니다.
+            현재 앱 내 자동 탈퇴 기능은 준비 중이며, 아래 절차에 따라 이메일로 요청하시면
+            영업일 기준 최대 30일 이내에 처리해 드립니다.
+        </div>
+
+        <section class="article">
+            <h2>제1조 삭제 요청 방법</h2>
+            <p>아래 절차에 따라 계정 삭제를 요청하실 수 있습니다.</p>
+            <ol class="steps">
+                <li>
+                    아래 연락처의 이메일로 <strong>제목: [보기] 계정 삭제 요청</strong>을 기재해 메일을 보냅니다.
+                </li>
+                <li>
+                    메일 본문에 <strong>가입하신 이메일 주소</strong>와
+                    <strong>로그인 방식(Google / Kakao)</strong>을 적어 주세요.
+                </li>
+                <li>
+                    본인 확인을 위해 가입 시 사용한 이메일 계정에서 메일을 보내주시기 바랍니다.
+                </li>
+                <li>
+                    접수 후 영업일 기준 <strong>최대 30일 이내</strong>에 계정 및 관련 데이터를 삭제하고
+                    동일한 이메일로 처리 완료 사실을 회신드립니다.
+                </li>
+            </ol>
+
+            <div class="cta">
+                <h3>바로 요청하기</h3>
+                <p>이메일: <a href="mailto:jinseo7572@gmail.com?subject=%5B%EB%B3%B4%EA%B8%B0%5D%20%EA%B3%84%EC%A0%95%20%EC%82%AD%EC%A0%9C%20%EC%9A%94%EC%B2%AD">jinseo7572@gmail.com</a></p>
+                <a class="email-btn" href="mailto:jinseo7572@gmail.com?subject=%5B%EB%B3%B4%EA%B8%B0%5D%20%EA%B3%84%EC%A0%95%20%EC%82%AD%EC%A0%9C%20%EC%9A%94%EC%B2%AD&body=%EA%B0%80%EC%9E%85%20%EC%9D%B4%EB%A9%94%EC%9D%BC%3A%20%0A%EB%A1%9C%EA%B7%B8%EC%9D%B8%20%EB%B0%A9%EC%8B%9D(Google%2FKakao)%3A%20%0A%EC%82%AD%EC%A0%9C%20%EC%82%AC%EC%9C%A0(%EC%84%A0%ED%83%9D)%3A%20">계정 삭제 이메일 작성</a>
+            </div>
+        </section>
+
+        <section class="article">
+            <h2>제2조 삭제되는 데이터</h2>
+            <p>계정 삭제가 완료되면 아래 데이터가 <strong>영구 삭제</strong>되며 복구할 수 없습니다.</p>
+            <table class="data">
+                <thead>
+                    <tr>
+                        <th>구분</th>
+                        <th>데이터 항목</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>계정 정보</td>
+                        <td>이메일 주소, 닉네임, 소셜 로그인 공급자가 제공한 사용자 식별자(User ID)</td>
+                    </tr>
+                    <tr>
+                        <td>사용자 콘텐츠</td>
+                        <td>이용자가 등록한 보유 보드게임 목록, 즐겨찾기, 앱 내 메모</td>
+                    </tr>
+                    <tr>
+                        <td>인증 토큰</td>
+                        <td>서버에 저장된 리프레시 토큰 및 세션 정보</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+        <section class="article">
+            <h2>제3조 일정 기간 보관되는 데이터 (법적 의무)</h2>
+            <p>
+                개인정보 보호법 등 관련 법령에 따라 <strong>아래 데이터는 보관 기간이 경과한 후 자동 삭제</strong>됩니다.
+                해당 데이터는 삭제 요청 시에도 즉시 삭제되지 않으며, 이용자의 식별이 불가능한 형태로만 사용됩니다.
+            </p>
+            <table class="data">
+                <thead>
+                    <tr>
+                        <th>구분</th>
+                        <th>보관 기간</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>서버 접근 로그(IP, User-Agent 등)</td>
+                        <td>최대 14일 (자동 로테이션 후 파기)</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+        <section class="article">
+            <h2>제4조 자주 묻는 질문</h2>
+            <div class="sub">Q. 앱 내에서 바로 탈퇴할 수는 없나요?</div>
+            <p>
+                현재는 이메일 요청 기반으로만 운영되고 있으며, 향후 앱 내 자동 탈퇴 기능을 추가할 예정입니다.
+                기능이 추가되면 앱 업데이트 공지를 통해 안내드립니다.
+            </p>
+
+            <div class="sub">Q. 소셜 로그인(Google / Kakao)을 해제해도 계정이 삭제되나요?</div>
+            <p>
+                아닙니다. Google 또는 Kakao 측에서 앱 연결을 해제하시더라도 보기 서버에 저장된
+                계정 정보는 그대로 남습니다. 완전한 삭제를 원하시면 반드시 본 페이지의 절차에 따라
+                이메일로 삭제 요청을 보내주세요.
+            </p>
+
+            <div class="sub">Q. 삭제 후 다시 가입할 수 있나요?</div>
+            <p>
+                네, 언제든 동일한 이메일로 다시 가입하실 수 있습니다. 다만 기존 보유 목록 등의
+                데이터는 복구되지 않습니다.
+            </p>
+
+            <div class="sub">Q. 삭제 처리에 얼마나 걸리나요?</div>
+            <p>
+                보통 1~3 영업일 이내에 처리되지만, 법령상 의무 보관 데이터가 있거나 개발자 사정으로 인해
+                <strong>최대 30일</strong>까지 소요될 수 있습니다. 처리 완료 시 동일한 이메일로 회신드립니다.
+            </p>
+        </section>
+
+        <section class="article">
+            <h2>제5조 문의</h2>
+            <p>계정 삭제 또는 개인정보 관련 문의는 아래 연락처로 보내주시기 바랍니다.</p>
+            <div class="cta">
+                <p><strong>개인정보 보호책임자</strong></p>
+                <p>- 성명: 오진서</p>
+                <p>- 직위: 서비스 운영자 (1인 개인 개발자)</p>
+                <p>- 이메일: <a href="mailto:jinseo7572@gmail.com">jinseo7572@gmail.com</a></p>
+            </div>
+            <p style="margin-top:12px;">
+                개인정보 처리방침 전문은
+                <a href="/privacy-policy">이곳</a>에서 확인하실 수 있습니다.
+            </p>
+        </section>
+
+        <footer class="doc-foot">
+            © 2026 보기(bogi). All rights reserved.
+        </footer>
+    </div>
+</body>
+
+</html>
