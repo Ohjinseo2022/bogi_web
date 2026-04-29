@@ -166,7 +166,7 @@
       <a class="btn btn-store" id="link-android" href="#" target="_blank" rel="noopener">Google Play에서 받기</a>
     </div>
 
-    <p class="muted">카카오톡 등 인앱 브라우저에서는 &lsquo;앱에서 열기&rsquo;가 막힐 수 있습니다. Safari·Chrome에서 다시 열어 보세요.</p>
+    <p class="muted">자동으로 앱 실행을 시도합니다. 열리지 않으면 아래 버튼을 눌러 주세요. 카카오톡 브라우저는 막힐 수 있어 Safari·Chrome 권장. 자동 시도 비활성: URL 에 <code>?noauto=1</code> 추가.</p>
   </div>
 
   <script>
@@ -201,6 +201,9 @@
   elId.textContent = shareId;
   elActions.hidden = false;
 
+  var qs = new URLSearchParams(window.location.search || "");
+  var noAuto = qs.get("noauto") === "1" || qs.get("manual") === "1";
+
   function openInApp() {
     var encoded = encodeURIComponent(shareId);
     var custom = "bogi://share/" + encoded;
@@ -219,6 +222,13 @@
     e.preventDefault();
     openInApp();
   });
+
+  /** 랜딩 후 곧바로 앱 스킴 호출(카카오 등 인앱브라우저는 차단될 수 있음). 끄려면 ?noauto=1 */
+  if (!noAuto) {
+    setTimeout(function () {
+      openInApp();
+    }, 160);
+  }
 })();
   </script>
 </body>
