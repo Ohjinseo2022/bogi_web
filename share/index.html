@@ -3,15 +3,25 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="theme-color" content="#1e1b4b" />
-  <title>보기(BOGI) — 공유 링크</title>
+  <meta name="theme-color" content="#6A42A8" />
+  <meta property="og:title" content="보기 - 보드게임을 함께 보기" />
+  <meta property="og:description" content="공유된 보유 목록을 앱에서 열어보세요." />
+  <meta property="og:image" content="https://www.bogi.ai.kr/assets/images/bogi-play-icon-512.png" />
+  <link rel="icon" type="image/png" sizes="512x512" href="../assets/images/bogi-play-icon-512.png" />
+  <link rel="apple-touch-icon" href="../assets/images/bogi-play-icon-512.png" />
+  <title>보기 - 보드게임을 함께 보기</title>
   <style>
     :root {
-      --bg: #0f172a;
-      --card: rgba(255, 255, 255, 0.08);
-      --text: #f8fafc;
-      --muted: #94a3b8;
-      --accent: #a78bfa;
+      --purple-base: #6a42a8;
+      --purple-deep: #4b2c82;
+      --purple-hi: #b8a9d9;
+      --bg-deep: #1a0f2e;
+      --bg-mid: #241436;
+      --text: #faf5ff;
+      --muted: #b8a9d9;
+      --text-soft: #e9d5ff;
+      --card: rgba(184, 169, 217, 0.1);
+      --card-border: rgba(184, 169, 217, 0.22);
       --radius: 16px;
     }
     * { box-sizing: border-box; }
@@ -19,34 +29,104 @@
       margin: 0;
       min-height: 100vh;
       font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Noto Sans KR", sans-serif;
-      background: radial-gradient(1200px 600px at 50% -20%, #312e81 0%, var(--bg) 55%);
+      background:
+        radial-gradient(1000px 520px at 50% -18%, rgba(106, 66, 168, 0.5) 0%, transparent 55%),
+        radial-gradient(700px 400px at 10% 40%, rgba(75, 44, 130, 0.35) 0%, transparent 50%),
+        linear-gradient(180deg, var(--bg-mid) 0%, var(--bg-deep) 100%);
       color: var(--text);
       padding: 28px 20px 40px;
     }
     .wrap { max-width: 420px; margin: 0 auto; }
-    h1 { font-size: 1.35rem; font-weight: 800; letter-spacing: -0.03em; margin: 0 0 8px; }
-    p.lead { margin: 0 0 24px; color: var(--muted); font-size: 0.95rem; line-height: 1.55; }
+    .brand {
+      text-align: center;
+      margin-bottom: 22px;
+    }
+    .logo-img {
+      width: 72px;
+      height: 72px;
+      border-radius: 18px;
+      display: inline-block;
+      box-shadow:
+        0 0 0 1px rgba(184, 169, 217, 0.35),
+        0 10px 36px rgba(75, 44, 130, 0.4);
+    }
+    h1 {
+      font-size: 1.28rem;
+      font-weight: 900;
+      letter-spacing: -0.03em;
+      margin: 14px 0 6px;
+      color: var(--text);
+    }
+    .title-sub {
+      display: block;
+      font-size: 0.88rem;
+      font-weight: 700;
+      color: var(--text-soft);
+      margin-bottom: 0;
+      letter-spacing: -0.02em;
+    }
+    p.lead {
+      margin: 0 0 24px;
+      color: var(--muted);
+      font-size: 0.95rem;
+      line-height: 1.55;
+      text-align: center;
+      font-weight: 500;
+    }
     .card {
       background: var(--card);
       border-radius: var(--radius);
       padding: 20px;
       margin-bottom: 14px;
-      border: 1px solid rgba(255, 255, 255, 0.12);
+      border: 1px solid var(--card-border);
     }
     .id-label { font-size: 0.75rem; color: var(--muted); margin-bottom: 6px; }
-    .id-value { font-family: ui-monospace, monospace; font-size: 0.9rem; word-break: break-all; }
+    .id-value {
+      font-family: ui-monospace, monospace;
+      font-size: 0.9rem;
+      word-break: break-all;
+      color: var(--text-soft);
+    }
     .btn {
-      display: block; width: 100%;
-      text-align: center; text-decoration: none;
-      font-weight: 700; font-size: 1rem;
-      padding: 14px 18px; border-radius: 12px; border: none; cursor: pointer;
+      display: block;
+      width: 100%;
+      text-align: center;
+      text-decoration: none;
+      font-weight: 700;
+      font-size: 1rem;
+      padding: 14px 18px;
+      border-radius: 12px;
+      border: none;
+      cursor: pointer;
       transition: opacity 0.15s;
     }
-    .btn:active { opacity: 0.88; }
-    .btn-primary { background: linear-gradient(135deg, #7c3aed, #6366f1); color: #fff; margin-bottom: 10px; }
-    .btn-store { background: rgba(255, 255, 255, 0.1); color: var(--text); margin-bottom: 8px; }
-    .muted { font-size: 0.82rem; color: var(--muted); text-align: center; margin-top: 20px; line-height: 1.45; }
-    .err { color: #fca5a5; font-size: 0.9rem; margin: 12px 0 0; }
+    .btn:active { opacity: 0.9; }
+    .btn-primary {
+      background: linear-gradient(145deg, #8b5bcf 0%, var(--purple-base) 45%, var(--purple-deep) 100%);
+      color: #ffffff;
+      margin-bottom: 10px;
+      border: 1px solid rgba(184, 169, 217, 0.35);
+      text-shadow: 0 1px 0 rgba(61, 31, 102, 0.2);
+    }
+    .btn-store {
+      background: rgba(184, 169, 217, 0.12);
+      color: var(--text-soft);
+      margin-bottom: 8px;
+      border: 1px solid rgba(184, 169, 217, 0.25);
+    }
+    .muted {
+      font-size: 0.82rem;
+      color: var(--muted);
+      text-align: center;
+      margin-top: 20px;
+      line-height: 1.45;
+      font-weight: 500;
+    }
+    .err {
+      color: #f0abfc;
+      font-size: 0.9rem;
+      margin: 12px 0 0;
+    }
   </style>
   <!--
     레포: bogi_web/share/index.html → git push 후 미니 PC 에서 pull, nginx root 가 그 디렉터리를 가리키게 두면 됨.
@@ -62,7 +142,16 @@
 </head>
 <body>
   <div class="wrap">
-    <h1>보기 (BOGI)</h1>
+    <div class="brand">
+      <img
+        class="logo-img"
+        src="../assets/images/bogi-play-icon-512.png"
+        width="72"
+        height="72"
+        alt=""
+      />
+      <h1>보기<span class="title-sub">보드게임을 함께 보기</span></h1>
+    </div>
     <p class="lead">공유된 보유 보드게임 목록을 앱에서 열 수 있습니다. 앱이 설치되어 있지 않다면 아래에서 받아 주세요.</p>
 
     <div class="card" id="state-id">
