@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#1e1b4b" />
+  <meta name="description" content="보기(bogi) — 보드게임 컬렉션을 한곳에서 정리하고, 보유 목록을 가볍게 공유할 수 있는 앱입니다." />
+  <meta property="og:title" content="보기 (BOGI)" />
+  <meta property="og:description" content="보드게임 컬렉션 관리와 공유를 위한 모바일 앱" />
+  <meta property="og:type" content="website" />
+  <title>보기 (BOGI) — 보드게임 컬렉션 앱</title>
+  <style>
+    :root {
+      --bg: #0f172a;
+      --muted: #94a3b8;
+      --text: #f8fafc;
+      --card: rgba(255, 255, 255, 0.07);
+      --radius: 18px;
+    }
+    * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+    body {
+      margin: 0;
+      min-height: 100vh;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Noto Sans KR", sans-serif;
+      color: var(--text);
+      background: radial-gradient(900px 500px at 80% -10%, rgba(139, 92, 246, 0.35) 0%, transparent 55%),
+        radial-gradient(700px 450px at 10% 20%, rgba(99, 102, 241, 0.25) 0%, transparent 50%),
+        var(--bg);
+    }
+    a { color: #c4b5fd; text-decoration: none; }
+    a:hover { text-decoration: underline; }
+    .shell { max-width: 920px; margin: 0 auto; padding: 28px 20px 48px; }
+    .hero {
+      text-align: center;
+      padding: 48px 0 36px;
+    }
+    .logo-mark {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 56px;
+      height: 56px;
+      border-radius: 16px;
+      background: linear-gradient(145deg, rgba(167, 139, 250, 0.35), rgba(99, 102, 241, 0.2));
+      border: 1px solid rgba(255, 255, 255, 0.14);
+      font-weight: 900;
+      font-size: 1.35rem;
+      letter-spacing: -0.04em;
+      margin-bottom: 18px;
+    }
+    h1 {
+      margin: 0 0 12px;
+      font-size: clamp(1.6rem, 4.5vw, 2rem);
+      font-weight: 900;
+      letter-spacing: -0.04em;
+      line-height: 1.2;
+    }
+    .subtitle {
+      margin: 0 auto;
+      max-width: 460px;
+      color: var(--muted);
+      font-size: 1.05rem;
+      line-height: 1.65;
+      font-weight: 500;
+    }
+    .stores {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      justify-content: center;
+      margin-top: 32px;
+    }
+    .store-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 12px 22px;
+      border-radius: 12px;
+      font-weight: 700;
+      font-size: 0.95rem;
+      text-decoration: none;
+      transition: opacity 0.15s, transform 0.12s;
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      background: linear-gradient(135deg, rgba(124, 58, 237, 0.65), rgba(79, 70, 229, 0.5));
+      color: #fff;
+    }
+    .store-btn:active { opacity: 0.9; transform: scale(0.99); }
+    .store-secondary {
+      background: rgba(255, 255, 255, 0.08);
+      color: var(--text);
+    }
+    .grid {
+      display: grid;
+      gap: 14px;
+      margin-top: 44px;
+      grid-template-columns: 1fr;
+    }
+    @media (min-width: 640px) {
+      .grid { grid-template-columns: repeat(3, 1fr); }
+    }
+    .feat {
+      background: var(--card);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: var(--radius);
+      padding: 20px;
+    }
+    .feat h3 {
+      margin: 0 0 8px;
+      font-size: 1rem;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+    }
+    .feat p {
+      margin: 0;
+      font-size: 0.88rem;
+      color: var(--muted);
+      line-height: 1.55;
+    }
+    footer {
+      margin-top: 48px;
+      padding-top: 24px;
+      border-top: 1px solid rgba(255, 255, 255, 0.08);
+      text-align: center;
+      font-size: 0.82rem;
+      color: var(--muted);
+      line-height: 1.7;
+    }
+    footer nav { margin-bottom: 8px; }
+    footer nav a {
+      margin: 0 8px;
+      color: #a5b4fc;
+      text-decoration: none;
+    }
+    footer nav a:hover { text-decoration: underline; color: #c7d2fe; }
+    .fine { opacity: 0.85; }
+  </style>
+  <!--
+    bogi_web 루트 index.html → nginx 의 server root 가 이 레포 루트일 때 URI / 에서 제공.
+    다른 정적 페이지와 동일하게 git pull 로 배포.
+  -->
+</head>
+<body>
+  <div class="shell">
+    <header class="hero">
+      <div class="logo-mark" aria-hidden="true">B</div>
+      <h1>보기<span style="opacity: 0.5; font-weight: 700; font-size: 0.85em;"> (BOGI)</span></h1>
+      <p class="subtitle">
+        내 보드게임 보유 목록을 정리하고, 친구에게 링크로 가볍게 공유할 수 있는 모바일 앱입니다.
+      </p>
+      <div class="stores">
+        <a id="link-ios" class="store-btn" href="#" target="_blank" rel="noopener noreferrer">App Store에서 받기</a>
+        <a id="link-android" class="store-btn store-secondary" href="#" target="_blank" rel="noopener noreferrer">Google Play에서 받기</a>
+      </div>
+    </header>
+
+    <section class="grid" aria-labelledby="feat-heading">
+      <h2 id="feat-heading" class="visually-hidden" style="position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);border:0;">주요 기능</h2>
+      <article class="feat">
+        <h3>컬렉션 한눈에</h3>
+        <p>보유한 보드게임을 모아 두고 상태를 빠르게 확인할 수 있어요.</p>
+      </article>
+      <article class="feat">
+        <h3>링크 공유</h3>
+        <p>공개 링크로 보유 목록을 공유해 보세요. 앱과 웹 랜딩에서 안내합니다.</p>
+      </article>
+      <article class="feat">
+        <h3>모바일 퍼스트</h3>
+        <p>iOS와 Android 에서 이용할 수 있습니다.</p>
+      </article>
+    </section>
+
+    <footer>
+      <nav aria-label="법적 안내">
+        <a href="privacy-policy.html">개인정보 처리방침</a>
+        <a href="account-deletion.html">회원탈퇴 안내</a>
+      </nav>
+      <p class="fine">© 보기 · bogi 앱 안내 페이지</p>
+    </footer>
+  </div>
+
+  <script>
+(function () {
+  var APP_STORE_URL = "https://apps.apple.com/app/id6762985055";
+  var PLAY_STORE_URL = "https://play.google.com/store/apps/details?id=com.ojs7572.bogi_front";
+  document.getElementById("link-ios").href = APP_STORE_URL;
+  document.getElementById("link-android").href = PLAY_STORE_URL;
+})();
+  </script>
+</body>
+</html>

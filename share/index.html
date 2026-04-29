@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#1e1b4b" />
+  <title>보기(BOGI) — 공유 링크</title>
+  <style>
+    :root {
+      --bg: #0f172a;
+      --card: rgba(255, 255, 255, 0.08);
+      --text: #f8fafc;
+      --muted: #94a3b8;
+      --accent: #a78bfa;
+      --radius: 16px;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      min-height: 100vh;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Noto Sans KR", sans-serif;
+      background: radial-gradient(1200px 600px at 50% -20%, #312e81 0%, var(--bg) 55%);
+      color: var(--text);
+      padding: 28px 20px 40px;
+    }
+    .wrap { max-width: 420px; margin: 0 auto; }
+    h1 { font-size: 1.35rem; font-weight: 800; letter-spacing: -0.03em; margin: 0 0 8px; }
+    p.lead { margin: 0 0 24px; color: var(--muted); font-size: 0.95rem; line-height: 1.55; }
+    .card {
+      background: var(--card);
+      border-radius: var(--radius);
+      padding: 20px;
+      margin-bottom: 14px;
+      border: 1px solid rgba(255, 255, 255, 0.12);
+    }
+    .id-label { font-size: 0.75rem; color: var(--muted); margin-bottom: 6px; }
+    .id-value { font-family: ui-monospace, monospace; font-size: 0.9rem; word-break: break-all; }
+    .btn {
+      display: block; width: 100%;
+      text-align: center; text-decoration: none;
+      font-weight: 700; font-size: 1rem;
+      padding: 14px 18px; border-radius: 12px; border: none; cursor: pointer;
+      transition: opacity 0.15s;
+    }
+    .btn:active { opacity: 0.88; }
+    .btn-primary { background: linear-gradient(135deg, #7c3aed, #6366f1); color: #fff; margin-bottom: 10px; }
+    .btn-store { background: rgba(255, 255, 255, 0.1); color: var(--text); margin-bottom: 8px; }
+    .muted { font-size: 0.82rem; color: var(--muted); text-align: center; margin-top: 20px; line-height: 1.45; }
+    .err { color: #fca5a5; font-size: 0.9rem; margin: 12px 0 0; }
+  </style>
+  <!--
+    레포: bogi_web/share/index.html → git push 후 미니 PC 에서 pull, nginx root 가 그 디렉터리를 가리키게 두면 됨.
+
+    nginx 예 (root 를 bogi_web 클론 루트로 둔 경우 — 경로는 서버에 맞게 조정):
+      root /srv/bogi_web;
+      location ~ ^/share/[^/]+$ {
+        try_files /share/index.html =404;
+      }
+
+    요청 URL 은 https://www.bogi.ai.kr/share/공유ID 형태로 유지되고, 같은 index.html 이 응답해야 JS 가 ID 를 읽을 수 있음.
+  -->
+</head>
+<body>
+  <div class="wrap">
+    <h1>보기 (BOGI)</h1>
+    <p class="lead">공유된 보유 보드게임 목록을 앱에서 열 수 있습니다. 앱이 설치되어 있지 않다면 아래에서 받아 주세요.</p>
+
+    <div class="card" id="state-id">
+      <div class="id-label">공유 ID</div>
+      <div class="id-value" id="share-id-el">—</div>
+      <p class="err" id="share-err" hidden></p>
+    </div>
+
+    <div id="actions" hidden>
+      <button type="button" class="btn btn-primary" id="btn-open-app">앱에서 열기</button>
+      <a class="btn btn-store" id="link-ios" href="#" target="_blank" rel="noopener">App Store에서 받기</a>
+      <a class="btn btn-store" id="link-android" href="#" target="_blank" rel="noopener">Google Play에서 받기</a>
+    </div>
+
+    <p class="muted">카카오톡 등 인앱 브라우저에서는 &lsquo;앱에서 열기&rsquo;가 막힐 수 있습니다. Safari·Chrome에서 다시 열어 보세요.</p>
+  </div>
+
+  <script>
+(function () {
+  /** 운영 시 App Store / Play 링크만 맞추면 됩니다. */
+  var APP_STORE_URL = "https://apps.apple.com/app/id6762985055";
+  var PLAY_STORE_URL = "https://play.google.com/store/apps/details?id=com.ojs7572.bogi_front";
+  var ANDROID_PACKAGE = "com.ojs7572.bogi_front";
+
+  var path = window.location.pathname || "";
+  var m = path.match(/\/share\/([^/]+)\/?$/);
+  var shareId = m ? decodeURIComponent(m[1]) : "";
+
+  var elId = document.getElementById("share-id-el");
+  var elErr = document.getElementById("share-err");
+  var elActions = document.getElementById("actions");
+  var btnApp = document.getElementById("btn-open-app");
+  var linkIos = document.getElementById("link-ios");
+  var linkAndroid = document.getElementById("link-android");
+
+  linkIos.href = APP_STORE_URL;
+  linkAndroid.href = PLAY_STORE_URL;
+
+  if (!shareId) {
+    elId.textContent = "(없음)";
+    elErr.hidden = false;
+    elErr.textContent = "주소 형식이 올바르지 않습니다. 예: …/share/공유ID";
+    elActions.hidden = false;
+    return;
+  }
+
+  elId.textContent = shareId;
+  elActions.hidden = false;
+
+  function openInApp() {
+    var encoded = encodeURIComponent(shareId);
+    var custom = "bogi://share/" + encoded;
+    var ua = navigator.userAgent || "";
+    if (/Android/i.test(ua)) {
+      var intent =
+        "intent://share/" + encoded +
+        "#Intent;scheme=bogi;package=" + ANDROID_PACKAGE + ";end";
+      window.location.href = intent;
+      return;
+    }
+    window.location.href = custom;
+  }
+
+  btnApp.addEventListener("click", function (e) {
+    e.preventDefault();
+    openInApp();
+  });
+})();
+  </script>
+</body>
+</html>
